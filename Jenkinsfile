@@ -63,18 +63,18 @@ pipeline {
               success {
                   echo 'Successfully Cloned Repository'
 
-                  mail  to: 'evan980825@gmail.com',
-                        subject: "Deploy Frontend Success",
-                        body: "Successfully deployed frontend!"
+                  // mail  to: 'evan980825@gmail.com',
+                  //       subject: "Deploy Frontend Success",
+                  //       body: "Successfully deployed frontend!"
 
               }
 
               failure {
                   echo 'I failed :('
 
-                  mail  to: 'evan980825@gmail.com',
-                        subject: "Failed Pipelinee",
-                        body: "Something is wrong with deploy frontend"
+                  // mail  to: 'evan980825@gmail.com',
+                  //       subject: "Failed Pipelinee",
+                  //       body: "Something is wrong with deploy frontend"
               }
           }
         }

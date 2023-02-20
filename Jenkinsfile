@@ -21,9 +21,9 @@ pipeline {
             steps {
                 echo 'Clonning Repository'
 
-                git url: 'https://github.com/frontalnh/temp.git',
+                git url: 'https://github.com/seungunleeee/DockerJenkinsPractice.git',
                     branch: 'master',
-                    credentialsId: 'jenkinsgit'
+                    credentialsId: 'gittest'
             }
 
             post {
@@ -42,6 +42,8 @@ pipeline {
                 }
             }
         }
+
+       
         
         // aws s3 에 파일을 올림
         stage('Deploy Frontend') {
@@ -50,7 +52,7 @@ pipeline {
             // 프론트엔드 디렉토리의 정적파일들을 S3 에 올림, 이 전에 반드시 EC2 instance profile 을 등록해야함.
             dir ('./website'){
                 sh '''
-                aws s3 sync ./ s3://namhoontest
+                aws s3 sync ./ s3://seungunleedockerjenkinstest
                 '''
             }
           }
@@ -61,7 +63,7 @@ pipeline {
               success {
                   echo 'Successfully Cloned Repository'
 
-                  mail  to: 'frontalnh@gmail.com',
+                  mail  to: 'evan980825@gmail.com',
                         subject: "Deploy Frontend Success",
                         body: "Successfully deployed frontend!"
 
@@ -70,7 +72,7 @@ pipeline {
               failure {
                   echo 'I failed :('
 
-                  mail  to: 'frontalnh@gmail.com',
+                  mail  to: 'evan980825@gmail.com',
                         subject: "Failed Pipelinee",
                         body: "Something is wrong with deploy frontend"
               }
@@ -131,7 +133,8 @@ pipeline {
             }
           }
         }
-        
+        //실제 환경에선 ecs update
+        //두번쨰 배포시   docker rm -f $(docker ps -aq)
         stage('Deploy Backend') {
           agent any
 
@@ -140,7 +143,7 @@ pipeline {
 
             dir ('./server'){
                 sh '''
-                docker rm -f $(docker ps -aq)
+              
                 docker run -p 80:80 -d server
                 '''
             }

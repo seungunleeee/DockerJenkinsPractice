@@ -1,15 +1,18 @@
-FROM node
+FROM node:latest
 
 # set working directory
 WORKDIR /
 
-COPY . /
+
 
 # update apt packages
 # ARG env
 # ENV APP_ENV=$env 
+RUN echo 'we re in build docker file'
 RUN npm install
-RUN npm run build
+RUN npm install -g typescript
+COPY . /
+RUN npm run build-ts
 
 EXPOSE 80
 

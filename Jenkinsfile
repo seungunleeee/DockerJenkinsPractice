@@ -1,5 +1,6 @@
 pipeline {
     // 스테이지 별로 다른 거
+    // email 제거 버전
     agent any
 
     triggers {
